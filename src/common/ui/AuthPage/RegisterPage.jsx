@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   Form,
   FormControl,
@@ -54,9 +55,9 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">Register</h1>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md space-y-6 rounded-lg bg-white p-8 shadow-md">
+        <h1 className="text-center text-2xl font-bold">Register</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -132,6 +133,15 @@ const RegisterPage = () => {
             <Button type="submit" className="w-full">
               Register
             </Button>
+            <span className="flex justify-center gap-1 pt-4 text-center text-sm text-black">
+              Already have an account?
+              <Link
+                href="/login"
+                className="font-semibold text-blue-500 hover:underline"
+              >
+                Login
+              </Link>
+            </span>
           </form>
         </Form>
       </div>

@@ -1,10 +1,16 @@
-import { cn } from "@/lib/utils";
 import React from "react";
+import Navbar from "@/common/components/Navbar";
+import Footer from "@/common/components/Footer";
+import Header from "@/common/components/Header";
+import ActiveEvents from "./ActiveEvents";
 
-const HomePage = ({ className = "bg-red-500" }) => {
+const HomePage = () => {
   return (
     <>
-      <main className={cn("bg-black", className)}>HomePage</main>
+      <Navbar />
+      <Header />
+      <ActiveEvents />
+      <Footer />
     </>
   );
 };
