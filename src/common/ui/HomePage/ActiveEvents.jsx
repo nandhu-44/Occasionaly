@@ -48,6 +48,8 @@ const ActiveEvents = () => {
                 height={300}
                 className="aspect-square h-48 w-full object-cover"
                 loading="lazy"
+                priority={false}
+                placeholder="blur"
                 quality={70}
                 blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
               />
