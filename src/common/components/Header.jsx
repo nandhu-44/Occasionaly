@@ -8,7 +8,7 @@ const Header = () => {
       </h1>
       <div className="h-[0.5px] w-full bg-black"></div>
       <p className="py-6 text-3xl text-black lg:text-4xl">
-        Making your occassions memorable
+        Making your occasions memorable
       </p>
       <div className="h-[0.5px] w-full bg-black"></div>
     </header>
