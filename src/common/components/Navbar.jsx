@@ -53,39 +53,41 @@ const Navbar = () => {
           </Link>
         </li>
 
-        {isLoggedIn ? (
-          <>
-            {/* If user is logged in */}
+        {isLoggedIn
+          ? (
+            <>
+              {/* If user is logged in */}
+              <li>
+                <Link href="/profile">
+                  <Image
+                    src="/user-profile.svg"
+                    alt="User Profile"
+                    height={32}
+                    width={32}
+                    className="h-10 w-10 rounded-full bg-white hover:shadow-lg"
+                  />
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-red-600"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )
+          : (
             <li>
-              <Link href="/profile">
-                <Image
-                  src="/user-profile.svg"
-                  alt="User Profile"
-                  height={32}
-                  width={32}
-                  className="h-10 w-10 rounded-full bg-white hover:shadow-lg"
-                />
+              <Link
+                className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
+                href="/login"
+              >
+                Login
               </Link>
             </li>
-            <li>
-              <button
-                className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-red-600"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            </li>
-          </>
-        ) : (
-          <li>
-            <Link
-              className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
-              href="/login"
-            >
-              Login
-            </Link>
-          </li>
-        )}
+          )}
       </ul>
 
       {/* Hamburger icon for mobile */}

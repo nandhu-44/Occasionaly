@@ -57,7 +57,7 @@ const LoginPage = () => {
         toast({
           title: "Login failed",
           description: data.message || "Invalid login credentials.",
-          variant: "destructive",
+          variant: "ghost",
         });
         return;
       }

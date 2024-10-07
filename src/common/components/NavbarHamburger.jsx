@@ -14,8 +14,8 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
 
   return (
     <ul
-      className={`fixed left-0 right-0 top-[70px] z-50 flex flex-col items-start gap-y-4 border-t border-black bg-slate-200 transition-all duration-300 ease-in-out lg:hidden ${
-        isOpen ? "h-[calc(100vh-70px)]" : "h-0"
+      className={`fixed left-0 right-0 top-[70px] z-50 flex flex-col items-start gap-y-4 bg-slate-200 transition-all duration-300 ease-in-out lg:hidden ${
+        isOpen ? "h-[calc(100vh-70px)] border-t border-black" : "h-0"
       } overflow-hidden`}
     >
       {/* Navigation links */}
@@ -56,41 +56,43 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
         </Link>
       </li>
 
-      {isLoggedIn ? (
-        <>
-          {/* If user is logged in */}
-          <li className="ml-3 py-2">
+      {isLoggedIn
+        ? (
+          <>
+            {/* If user is logged in */}
+            <li className="ml-3 py-2">
+              <Link
+                className="block px-4 text-lg font-medium text-black"
+                href="/profile"
+                onClick={() => setIsOpen(false)}
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="ml-3 px-4 py-2">
+              <button
+                className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )
+        : (
+          <li className="ml-3 px-4 py-2">
             <Link
-              className="block px-4 text-lg font-medium text-black"
-              href="/profile"
+              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
+              href="/login"
               onClick={() => setIsOpen(false)}
             >
-              Profile
+              Login
             </Link>
           </li>
-          <li className="ml-3 px-4 py-2">
-            <button
-              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
-              onClick={() => {
-                handleLogout();
-                setIsOpen(false);
-              }}
-            >
-              Logout
-            </button>
-          </li>
-        </>
-      ) : (
-        <li className="ml-3 px-4 py-2">
-          <Link
-            className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
-            href="/login"
-            onClick={() => setIsOpen(false)}
-          >
-            Login
-          </Link>
-        </li>
-      )}
+        )}
     </ul>
   );
 };
