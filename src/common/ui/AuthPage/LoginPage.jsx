@@ -15,6 +15,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 // Define the schema for login form validation
 const loginSchema = z.object({
@@ -27,7 +29,6 @@ const loginSchema = z.object({
 });
 
 const LoginPage = () => {
-  // Initialize the form with React Hook Form and Zod validation
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -36,16 +37,52 @@ const LoginPage = () => {
     },
   });
 
+  const router = useRouter();
+
   // Handle form submission
   async function onSubmit(values) {
-    console.log(values);
-    // Implement login logic here (e.g., API call)
-    const response = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
-    const data = await response.json();
-    console.log(data);
+    try {
+      // Make an API call to login endpoint
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast({
+          title: "Login failed",
+          description: data.message || "Invalid login credentials.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Show success toast on successful login
+      toast({
+        title: "Login successful",
+        description: "You have logged in successfully.",
+      });
+
+      // Save the token to local storage
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      // Redirect to homepage or dashboard
+      router.push("/");
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

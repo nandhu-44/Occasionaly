@@ -22,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -49,10 +51,53 @@ const RegisterPage = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
-    // Handle form submission here
-  }
+  const router = useRouter();
+
+  const onSubmit = async (values) => {
+    try {
+      // Make a POST request to the register API endpoint
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await res?.json();
+
+      if (!res.ok) {
+        // Show error toast if registration fails
+        toast({
+          title: "Registration failed",
+          description: data.message || "An error occurred during registration.",
+          variant: "destructive",
+        });
+        return;
+      }
+      // Show success toast on successful registration
+      toast({
+        title: "Registration successful",
+        description: "Your account has been created successfully.",
+      });
+
+      // Redirect to the dashboard if token in response
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        return router.push("/dashboard");
+      }
+
+      // Redirect to login page
+      router.push("/login");
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">

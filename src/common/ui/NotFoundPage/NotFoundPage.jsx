@@ -8,14 +8,14 @@ const NotFoundPage = () => {
   return (
     <>
       <Navbar />
-      <main className="flex h-screen flex-col items-center justify-center px-4 text-center">
+      <main className="my-20 flex flex-col items-center justify-center px-4 text-center">
         <div className="max-w-md">
           <Image
             src="/404-Illustration.svg"
             alt="404"
             width={300}
             height={300}
-            className="mx-auto"
+            className="mx-auto h-full w-full"
             priority
             style={{
               layout: "fixed",
