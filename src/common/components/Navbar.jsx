@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
+import Hamburger from "./Hamburger";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,31 +27,29 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between bg-gray-200 p-4 text-center lg:px-32">
-      {/* <div className="text-3xl font-bold shadow-yellow-400 drop-shadow-md lg:text-4xl">
-        <Link href="/">Occasionaly</Link>
-      </div> */}
+      {/* Logo */}
       <Logo />
 
       {/* Navigation links */}
       <ul className="hidden items-center space-x-4 lg:flex">
         <li>
           <Link className="px-4 py-2 hover:underline" href="/events">
-            EVENTS
+            Events
           </Link>
         </li>
         <li>
           <Link className="px-4 py-2 hover:underline" href="/projects">
-            PROJECTS
+            Projects
           </Link>
         </li>
         <li>
           <Link className="px-4 py-2 hover:underline" href="/product-owners">
-            PRODUCT OWNERS
+            Product Owners
           </Link>
         </li>
         <li>
           <Link className="px-4 py-2 hover:underline" href="/blog">
-            BLOG
+            Blog
           </Link>
         </li>
 
@@ -58,7 +57,7 @@ const Navbar = () => {
           <>
             {/* If user is logged in */}
             <li>
-              <Link href="/my-profile">
+              <Link href="/profile">
                 <Image
                   src="/user-profile.svg"
                   alt="User Profile"
@@ -73,7 +72,7 @@ const Navbar = () => {
                 className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-red-600"
                 onClick={handleLogout}
               >
-                LOGOUT
+                Logout
               </button>
             </li>
           </>
@@ -83,14 +82,14 @@ const Navbar = () => {
               className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
               href="/login"
             >
-              LOGIN
+              Login
             </Link>
           </li>
         )}
       </ul>
 
       {/* Hamburger icon for mobile */}
-      <div className="text-3xl font-bold text-black lg:hidden">☰</div>
+      <Hamburger handleLogout={handleLogout} isLoggedIn={isLoggedIn} />
     </nav>
   );
 };
