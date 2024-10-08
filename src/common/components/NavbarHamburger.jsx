@@ -31,10 +31,10 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
       <li className="ml-3 py-2">
         <Link
           className="block px-4 text-lg font-medium text-black"
-          href="/projects"
+          href="/services"
           onClick={() => setIsOpen(false)}
         >
-          Projects
+          Get Services
         </Link>
       </li>
       <li className="ml-3 py-2">
@@ -56,43 +56,41 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
         </Link>
       </li>
 
-      {isLoggedIn
-        ? (
-          <>
-            {/* If user is logged in */}
-            <li className="ml-3 py-2">
-              <Link
-                className="block px-4 text-lg font-medium text-black"
-                href="/profile"
-                onClick={() => setIsOpen(false)}
-              >
-                Profile
-              </Link>
-            </li>
-            <li className="ml-3 px-4 py-2">
-              <button
-                className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
-                onClick={() => {
-                  handleLogout();
-                  setIsOpen(false);
-                }}
-              >
-                Logout
-              </button>
-            </li>
-          </>
-        )
-        : (
-          <li className="ml-3 px-4 py-2">
+      {isLoggedIn ? (
+        <>
+          {/* If user is logged in */}
+          <li className="ml-3 py-2">
             <Link
-              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
-              href="/login"
+              className="block px-4 text-lg font-medium text-black"
+              href="/profile"
               onClick={() => setIsOpen(false)}
             >
-              Login
+              Profile
             </Link>
           </li>
-        )}
+          <li className="ml-3 px-4 py-2">
+            <button
+              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
+              onClick={() => {
+                handleLogout();
+                setIsOpen(false);
+              }}
+            >
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <li className="ml-3 px-4 py-2">
+          <Link
+            className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
+            href="/login"
+            onClick={() => setIsOpen(false)}
+          >
+            Login
+          </Link>
+        </li>
+      )}
     </ul>
   );
 };
