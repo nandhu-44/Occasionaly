@@ -8,14 +8,14 @@ const Header = () => {
       text: "Making",
     },
     {
-      text: "your ",
+      text: "your",
     },
     {
-      text: "occasions ",
+      text: "occasions",
       className: "text-yellow-400",
     },
     {
-      text: "memorable",
+      text: "memorable.",
     },
   ];
 
@@ -26,7 +26,6 @@ const Header = () => {
       </h1>
       <div className="h-[0.5px] w-full bg-black"></div>
       <div className="py-6 text-3xl text-black lg:text-4xl">
-        {/* Making your occasions memorable */}
         <TypewriterEffect words={words} />
       </div>
       <div className="h-[0.5px] w-full bg-black"></div>

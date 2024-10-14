@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   return (
     <>
       <Navbar />
-      <main className="my-20 flex flex-col items-center justify-center px-4 text-center">
+      <main className="flex flex-col items-center justify-center px-4 py-28 text-center">
         <div className="max-w-md">
           <Image
             src="/404-Illustration.svg"

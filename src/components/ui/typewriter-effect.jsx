@@ -36,29 +36,30 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
   const renderWords = () => {
     return (
       <motion.div ref={scope} className="inline">
-        {wordsArray.map((word, idx) => {
-          return (
-            <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <motion.span
-                  initial={{}}
-                  key={`char-${index}`}
-                  className={cn(
-                    `hidden text-black opacity-0 dark:text-white`,
-                    word.className,
-                  )}
-                >
-                  {char}
-                </motion.span>
-              ))}
-              <span className="inline-block">&nbsp;</span>{" "}
-              {/* Add space after each word */}
-            </div>
-          );
-        })}
+        {wordsArray.map((word, idx) => (
+          <div key={`word-${idx}`} className="inline-block">
+            {word.text.map((char, index) => (
+              <motion.span
+                initial={{}}
+                key={`char-${index}`}
+                className={cn(
+                  `hidden text-black opacity-0 dark:text-white`,
+                  word.className,
+                )}
+              >
+                {char}
+              </motion.span>
+            ))}
+            {/* Add space after each word except the last */}
+            {idx < wordsArray.length - 1 && (
+              <span className="inline-block">&nbsp;</span>
+            )}
+          </div>
+        ))}
       </motion.div>
     );
   };
+
   return (
     <div
       className={cn(
@@ -75,16 +76,15 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
           opacity: 1,
         }}
         transition={{
-          duration: 0.8,
+          duration: 0.6,
           repeat: Infinity,
           repeatType: "reverse",
         }}
         className={cn(
-          "inline-block h-4 w-[3px] rounded-sm bg-black md:h-6 lg:h-auto",
+          "inline-block h-auto w-[2px] rounded-full bg-black",
           cursorClassName,
         )}
-      >
-      </motion.span>
+      ></motion.span>
     </div>
   );
 };
@@ -146,10 +146,8 @@ export const TypewriterEffectSmooth = ({
             whiteSpace: "nowrap",
           }}
         >
-          {renderWords()}
-          {" "}
-        </div>
-        {" "}
+          {renderWords()}{" "}
+        </div>{" "}
       </motion.div>
       <motion.span
         initial={{
@@ -168,8 +166,7 @@ export const TypewriterEffectSmooth = ({
           "block h-auto w-[4px] rounded-sm bg-black",
           cursorClassName,
         )}
-      >
-      </motion.span>
+      ></motion.span>
     </div>
   );
 };
