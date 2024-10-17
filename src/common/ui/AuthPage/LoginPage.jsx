@@ -66,6 +66,7 @@ const LoginPage = () => {
       toast({
         title: "Login successful",
         description: "You have logged in successfully.",
+        variant: "success",
       });
 
       // Save the token to local storage

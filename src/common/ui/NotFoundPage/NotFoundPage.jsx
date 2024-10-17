@@ -1,5 +1,3 @@
-import Footer from "@/common/components/Footer";
-import Navbar from "@/common/components/Navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +5,6 @@ import Link from "next/link";
 const NotFoundPage = () => {
   return (
     <>
-      <Navbar />
       <main className="flex flex-col items-center justify-center px-4 py-28 text-center">
         <div className="max-w-md">
           <Image
@@ -33,7 +30,6 @@ const NotFoundPage = () => {
           </Button>
         </div>
       </main>
-      <Footer />
     </>
   );
 };
