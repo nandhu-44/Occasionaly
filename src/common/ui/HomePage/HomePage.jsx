@@ -14,7 +14,6 @@ const HomePage = () => {
     <>
       <Header />
       <ActiveEvents filters={defaultFilters} />
-      <Footer />
     </>
   );
 };
