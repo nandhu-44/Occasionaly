@@ -2,7 +2,13 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 
-const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
+const NavbarHamburger = ({
+  isOpen,
+  setIsOpen,
+  user,
+  handleLogout,
+  linksToDisplay,
+}) => {
   // Disable scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -19,7 +25,7 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
       } overflow-hidden`}
     >
       {/* Navigation links */}
-      <li className="ml-3 mt-6 py-2">
+      {/* <li className="ml-3 mt-6 py-2">
         <Link
           className="block px-4 text-lg font-medium text-black"
           href="/events"
@@ -54,9 +60,20 @@ const NavbarHamburger = ({ isOpen, setIsOpen, isLoggedIn, handleLogout }) => {
         >
           Blog
         </Link>
-      </li>
+      </li> */}
+      {linksToDisplay.map((link) => (
+        <li key={link.href} className="ml-3 py-2">
+          <Link
+            className="block px-4 text-lg font-medium text-black"
+            href={link.href}
+            onClick={() => setIsOpen(false)}
+          >
+            {link.label}
+          </Link>
+        </li>
+      ))}
 
-      {isLoggedIn ? (
+      {user ? (
         <>
           {/* If user is logged in */}
           <li className="ml-3 py-2">

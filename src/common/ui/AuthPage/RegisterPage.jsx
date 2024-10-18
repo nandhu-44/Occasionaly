@@ -79,12 +79,13 @@ const RegisterPage = () => {
       toast({
         title: "Registration successful",
         description: "Your account has been created successfully.",
+        variant: "success",
       });
 
-      // Redirect to the dashboard if token in response
+      // Redirect to the home if token in response
       if (data.token) {
         localStorage.setItem("token", data.token);
-        return router.push("/dashboard");
+        return router.push("/");
       }
 
       // Redirect to login page

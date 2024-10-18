@@ -84,7 +84,8 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
           "inline-block h-auto w-[2px] rounded-full bg-black",
           cursorClassName,
         )}
-      ></motion.span>
+      >
+      </motion.span>
     </div>
   );
 };
@@ -146,8 +147,10 @@ export const TypewriterEffectSmooth = ({
             whiteSpace: "nowrap",
           }}
         >
-          {renderWords()}{" "}
-        </div>{" "}
+          {renderWords()}
+          {" "}
+        </div>
+        {" "}
       </motion.div>
       <motion.span
         initial={{
@@ -166,7 +169,8 @@ export const TypewriterEffectSmooth = ({
           "block h-auto w-[4px] rounded-sm bg-black",
           cursorClassName,
         )}
-      ></motion.span>
+      >
+      </motion.span>
     </div>
   );
 };
