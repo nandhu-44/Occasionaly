@@ -35,7 +35,7 @@ const formSchema = z.object({
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",
   }),
-  accountType: z.enum(["vendor", "eventOrganizer", "user"], {
+  accountType: z.enum(["vendor", "user"], {
     required_error: "Please select an account type.",
   }),
 });
@@ -85,11 +85,11 @@ const RegisterPage = () => {
       // Redirect to the home if token in response
       if (data.token) {
         localStorage.setItem("token", data.token);
-        return router.push("/");
       }
 
       // Redirect to login page
-      router.push("/login");
+      // router.push("/login");
+      window.location.href = "/login"; // Refresh the page to update the UI
     } catch (error) {
       console.error("Error:", error);
       toast({
