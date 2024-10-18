@@ -75,7 +75,8 @@ const LoginPage = () => {
       }
 
       // Redirect to homepage or dashboard
-      router.push("/");
+      // router.push("/");
+      window.location.href = "/"; // Refresh the page to update the UI
     } catch (error) {
       console.error("Error:", error);
       toast({

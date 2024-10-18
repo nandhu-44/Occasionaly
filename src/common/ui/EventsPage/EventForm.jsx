@@ -41,40 +41,58 @@ export default function EventForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Prepare form data for submission
-    const formData = new FormData();
-    for (const key in eventData) {
-      if (eventData[key] instanceof File) {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const base64data = reader.result;
-          formData.append(key, base64data);
-        };
-        reader.readAsDataURL(eventData[key]);
-      } else {
-        formData.append(key, eventData[key]);
-      }
+    // If there's an image, convert it to a base64 string
+    let base64Image = null;
+    if (eventData.image) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        base64Image = reader.result;
+      };
+      reader.readAsDataURL(eventData.image);
     }
+
+    // Wait for the image to be converted before submitting the form
+    const imageDataPromise = new Promise((resolve) => {
+      const checkImage = setInterval(() => {
+        if (base64Image) {
+          clearInterval(checkImage);
+          resolve();
+        }
+      }, 100);
+    });
+
+    await imageDataPromise;
+
+    // Prepare the event data to be sent as JSON
+    const dataToSubmit = {
+      ...eventData,
+      image: base64Image, // Add the base64 string instead of the File object
+    };
 
     try {
       const response = await fetch("/api/events", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSubmit),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const { message } = await response.json();
         toast({
           title: "Error",
-          description: message || "Failed to create event.",
+          description: data.message || "Failed to create event.",
+          variant: "destructive",
         });
         return;
       }
 
-      const data = await response.json();
       toast({
         title: "Event Created",
         description: "Your event has been created successfully.",
+        variant: "success",
       });
 
       // Reset the form
@@ -90,6 +108,7 @@ export default function EventForm() {
       toast({
         title: "Error",
         description: "An unexpected error occurred.",
+        variant: "destructive",
       });
     }
   };

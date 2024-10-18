@@ -1,38 +1,18 @@
 import MongoConnect from "@/utils/MongoConnect";
 import Event from "@/models/Event";
 
-const connectToMongoDB = async () => {
-  await MongoConnect();
-};
+// Connect to MongoDB
+MongoConnect();
 
 // Handle POST requests
 export const POST = async (req) => {
   try {
-    await connectToMongoDB();
-
-    // Use req.formData() to parse FormData
-    const formData = await req.formData();
-
-    // Log the formData for debugging
-    console.log("Form Data Received:", formData);
-
-    // Extract data from formData
-    const title = formData.get("title");
-    const description = formData.get("description");
-    const eventType = formData.get("eventType");
-    const foodType = formData.get("foodType");
-    const peopleCount = formData.get("peopleCount");
-    const image = formData.get("image");
+    // Parse the request body as JSON
+    const body = await req.json();
+    const { title, description, eventType, foodType, peopleCount, image } = body;
 
     // Validate the required fields
-    if (
-      !title ||
-      !description ||
-      !eventType ||
-      !foodType ||
-      !peopleCount ||
-      !image
-    ) {
+    if (!title || !description || !eventType || !foodType || !peopleCount || !image) {
       console.log("Missing fields:", {
         title,
         description,
@@ -47,14 +27,14 @@ export const POST = async (req) => {
       );
     }
 
-    // Create new event
+    // Create a new event instance
     const newEvent = new Event({
       title,
       description,
       eventType,
       foodType,
       peopleCount,
-      image, // Ensure this is handled properly
+      image, // Ensure the image is handled properly (as base64 or URL)
     });
 
     // Save the event to MongoDB
