@@ -2,13 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
 import Logo from "./Logo";
 import Hamburger from "./Hamburger";
-import UserContext from "@/context/UserContext";
+import { useUser } from "@/hooks/useUser";
 
 const Navbar = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useUser();
   const router = useRouter();
 
   const handleLogout = () => {

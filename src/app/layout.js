@@ -1,3 +1,4 @@
+// src/app/layout.js
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -5,26 +6,47 @@ import { UserProvider } from "@/context/UserContext";
 import Navbar from "@/common/components/Navbar";
 import Footer from "@/common/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+// Optimize font loading
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata = {
-  title: "Occasionaly",
+  title: {
+    default: "Occasionaly",
+    template: "%s | Occasionaly"
+  },
   description: "Make your occasions memorable",
+  icons: {
+    icon: "/logo.svg",
+  },
+  // Add additional metadata for better SEO
+  // manifest: "/manifest.json",
+  openGraph: {
+    title: "Occasionaly",
+    description: "Make your occasions memorable",
+    siteName: "Occasionaly",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="icon" href="/logo.svg" />
-      </head>
+    <html lang="en" className={inter.variable}>
       <body className={inter.className}>
-        <UserProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <Toaster />
-        </UserProvider>
+        {/* Providers wrapper to handle hydration properly */}
+        <div className="flex min-h-screen flex-col">
+          <UserProvider>
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
+          </UserProvider>
+        </div>
       </body>
     </html>
   );
