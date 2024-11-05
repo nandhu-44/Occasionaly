@@ -1,13 +1,13 @@
-// src/context/UserContext.jsx
 "use client";
 import React, {
   createContext,
-  useState,
-  useEffect,
   useCallback,
+  useEffect,
   useRef,
+  useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import Loader from "@/common/components/Loader";
 
 const UserContext = createContext();
 
@@ -16,17 +16,14 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Use refs to track initialization and prevent unnecessary fetches
   const isInitialized = useRef(false);
   const currentToken = useRef(null);
 
-  // Track pathname changes
   const pathname = usePathname();
 
   const fetchUserData = useCallback(
     async (token) => {
       try {
-        // Skip if we already have user data and using the same token
         if (user && token === currentToken.current) {
           setLoading(false);
           return;
@@ -36,7 +33,6 @@ export const UserProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          // Add cache control headers
           cache: "no-store",
         });
 
@@ -58,7 +54,6 @@ export const UserProvider = ({ children }) => {
     [user],
   );
 
-  // Handle user logout
   const logout = useCallback(() => {
     localStorage.removeItem("token");
     setUser(null);
@@ -66,7 +61,6 @@ export const UserProvider = ({ children }) => {
     setError(null);
   }, []);
 
-  // Initial data fetch
   useEffect(() => {
     if (isInitialized.current) return;
 
@@ -80,17 +74,15 @@ export const UserProvider = ({ children }) => {
     isInitialized.current = true;
   }, [fetchUserData]);
 
-  // Token refresh/validation effect
   useEffect(() => {
     const validateToken = async () => {
       const token = localStorage.getItem("token");
 
-      // If we have a token but no user data, fetch it
+      // Only fetch if not loading and user data is missing
       if (token && !user && !loading) {
         await fetchUserData(token);
       }
 
-      // If we have no token but have user data, clear it
       if (!token && user) {
         logout();
       }
@@ -111,7 +103,9 @@ export const UserProvider = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };

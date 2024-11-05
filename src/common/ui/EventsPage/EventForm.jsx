@@ -134,8 +134,7 @@ export default function EventForm() {
               <Label htmlFor="eventType">Event Type</Label>
               <Select
                 onValueChange={(value) =>
-                  setEventData((prev) => ({ ...prev, eventType: value }))
-                }
+                  setEventData((prev) => ({ ...prev, eventType: value }))}
               >
                 <SelectTrigger id="eventType">
                   <SelectValue placeholder="Select event type" />
@@ -151,8 +150,7 @@ export default function EventForm() {
               <Label htmlFor="foodType">Food Type</Label>
               <Select
                 onValueChange={(value) =>
-                  setEventData((prev) => ({ ...prev, foodType: value }))
-                }
+                  setEventData((prev) => ({ ...prev, foodType: value }))}
               >
                 <SelectTrigger id="foodType">
                   <SelectValue placeholder="Select food type" />

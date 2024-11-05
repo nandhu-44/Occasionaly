@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { UserProvider } from "@/context/UserContext";
 import Navbar from "@/common/components/Navbar";
 import Footer from "@/common/components/Footer";
+import Loading from "./loading";
+import { Suspense } from "react";
 
 // Optimize font loading
 const inter = Inter({
@@ -16,7 +18,7 @@ const inter = Inter({
 export const metadata = {
   title: {
     default: "Occasionaly",
-    template: "%s | Occasionaly"
+    template: "%s | Occasionaly",
   },
   description: "Make your occasions memorable",
   icons: {
@@ -39,12 +41,14 @@ export default function RootLayout({ children }) {
         {/* Providers wrapper to handle hydration properly */}
         <div className="flex min-h-screen flex-col">
           <UserProvider>
-            <Navbar />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
+            <Suspense fallback={<Loading />}>
+              <Navbar />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+              <Toaster />
+            </Suspense>
           </UserProvider>
         </div>
       </body>

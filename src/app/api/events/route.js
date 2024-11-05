@@ -9,10 +9,14 @@ export const POST = async (req) => {
   try {
     // Parse the request body as JSON
     const body = await req.json();
-    const { title, description, eventType, foodType, peopleCount, image } = body;
+    const { title, description, eventType, foodType, peopleCount, image } =
+      body;
 
     // Validate the required fields
-    if (!title || !description || !eventType || !foodType || !peopleCount || !image) {
+    if (
+      !title || !description || !eventType || !foodType || !peopleCount ||
+      !image
+    ) {
       console.log("Missing fields:", {
         title,
         description,

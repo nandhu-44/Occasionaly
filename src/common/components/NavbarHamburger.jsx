@@ -25,7 +25,8 @@ const NavbarHamburger = ({
       } overflow-hidden`}
     >
       {/* Navigation links */}
-      {/* <li className="ml-3 mt-6 py-2">
+      {
+        /* <li className="ml-3 mt-6 py-2">
         <Link
           className="block px-4 text-lg font-medium text-black"
           href="/events"
@@ -60,7 +61,8 @@ const NavbarHamburger = ({
         >
           Blog
         </Link>
-      </li> */}
+      </li> */
+      }
       {linksToDisplay.map((link) => (
         <li key={link.href} className="ml-3 py-2">
           <Link
@@ -73,41 +75,43 @@ const NavbarHamburger = ({
         </li>
       ))}
 
-      {user ? (
-        <>
-          {/* If user is logged in */}
-          <li className="ml-3 py-2">
+      {user
+        ? (
+          <>
+            {/* If user is logged in */}
+            <li className="ml-3 py-2">
+              <Link
+                className="block px-4 text-lg font-medium text-black"
+                href="/profile"
+                onClick={() => setIsOpen(false)}
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="ml-3 px-4 py-2">
+              <button
+                className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )
+        : (
+          <li className="ml-3 px-4 py-2">
             <Link
-              className="block px-4 text-lg font-medium text-black"
-              href="/profile"
+              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
+              href="/login"
               onClick={() => setIsOpen(false)}
             >
-              Profile
+              Login
             </Link>
           </li>
-          <li className="ml-3 px-4 py-2">
-            <button
-              className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-red-600"
-              onClick={() => {
-                handleLogout();
-                setIsOpen(false);
-              }}
-            >
-              Logout
-            </button>
-          </li>
-        </>
-      ) : (
-        <li className="ml-3 px-4 py-2">
-          <Link
-            className="block w-full rounded bg-orange-500 px-4 py-2 text-lg font-semibold text-white hover:bg-orange-600"
-            href="/login"
-            onClick={() => setIsOpen(false)}
-          >
-            Login
-          </Link>
-        </li>
-      )}
+        )}
     </ul>
   );
 };

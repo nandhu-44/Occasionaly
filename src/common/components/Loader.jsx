@@ -3,161 +3,279 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="loader z-[1000] flex items-center justify-center bg-white">
-      <div className="box box-1">
-        <div className="side-left" />
-        <div className="side-right" />
-        <div className="side-top" />
-      </div>
-      <div className="box box-2">
-        <div className="side-left" />
-        <div className="side-right" />
-        <div className="side-top" />
-      </div>
-      <div className="box box-3">
-        <div className="side-left" />
-        <div className="side-right" />
-        <div className="side-top" />
-      </div>
-      <div className="box box-4">
-        <div className="side-left" />
-        <div className="side-right" />
-        <div className="side-top" />
-      </div>
-
-      <style jsx>{`
-        .loader {
-          scale: 3;
-          height: 50px;
-          width: 40px;
-        }
-
-        .box {
-          position: relative;
-          opacity: 0;
-          left: 10px;
-        }
-
-        .side-left {
-          position: absolute;
-          background-color: #286cb5;
-          width: 19px;
-          height: 5px;
-          transform: skew(0deg, -25deg);
-          top: 14px;
-          left: 10px;
-        }
-
-        .side-right {
-          position: absolute;
-          background-color: #2f85e0;
-          width: 19px;
-          height: 5px;
-          transform: skew(0deg, 25deg);
-          top: 14px;
-          left: -9px;
-        }
-
-        .side-top {
-          position: absolute;
-          background-color: #5fa8f5;
-          width: 20px;
-          height: 20px;
-          rotate: 45deg;
-          transform: skew(-20deg, -20deg);
-        }
-
-        .box-1 {
-          animation: from-left 4s infinite;
-        }
-
-        .box-2 {
-          animation: from-right 4s infinite;
-          animation-delay: 1s;
-        }
-
-        .box-3 {
-          animation: from-left 4s infinite;
-          animation-delay: 2s;
-        }
-
-        .box-4 {
-          animation: from-right 4s infinite;
-          animation-delay: 3s;
-        }
-
-        @keyframes from-left {
-          0% {
-            z-index: 20;
-            opacity: 0;
-            transform: translate(-20px, -6px);
+    <div className="loadingspinner flex items-center justify-center">
+      <div id="square1"></div>
+      <div id="square2"></div>
+      <div id="square3"></div>
+      <div id="square4"></div>
+      <div id="square5"></div>
+      <style jsx>
+        {`
+          /* From Uiverse.io by Nawsome */
+          .loadingspinner {
+            --square: 26px;
+            --offset: 30px;
+            --duration: 2.4s;
+            --delay: 0.2s;
+            --timing-function: ease-in-out;
+            --in-duration: 0.4s;
+            --in-delay: 0.1s;
+            --in-timing-function: ease-out;
+            width: calc(3 * var(--offset) + var(--square));
+            height: calc(2 * var(--offset) + var(--square));
+            padding: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            position: relative;
           }
 
-          20% {
-            z-index: 10;
-            opacity: 1;
-            transform: translate(0px, 0px);
+          .loadingspinner div {
+            display: inline-block;
+            background: darkorange;
+            /*background: var(--text-color);*/
+            /*box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);*/
+            border: none;
+            border-radius: 2px;
+            width: var(--square);
+            height: var(--square);
+            position: absolute;
+            padding: 0px;
+            margin: 0px;
+            font-size: 6pt;
+            color: black;
           }
 
-          40% {
-            z-index: 9;
-            transform: translate(0px, 4px);
+          .loadingspinner #square1 {
+            left: calc(0 * var(--offset));
+            top: calc(0 * var(--offset));
+            animation:
+              square1 var(--duration) var(--delay) var(--timing-function)
+                infinite,
+              squarefadein var(--in-duration) calc(1 * var(--in-delay))
+                var(--in-timing-function) both;
           }
 
-          60% {
-            z-index: 8;
-            transform: translate(0px, 8px);
+          .loadingspinner #square2 {
+            left: calc(0 * var(--offset));
+            top: calc(1 * var(--offset));
+            animation:
+              square2 var(--duration) var(--delay) var(--timing-function)
+                infinite,
+              squarefadein var(--in-duration) calc(1 * var(--in-delay))
+                var(--in-timing-function) both;
           }
 
-          80% {
-            z-index: 7;
-            opacity: 1;
-            transform: translate(0px, 12px);
+          .loadingspinner #square3 {
+            left: calc(1 * var(--offset));
+            top: calc(1 * var(--offset));
+            animation:
+              square3 var(--duration) var(--delay) var(--timing-function)
+                infinite,
+              squarefadein var(--in-duration) calc(2 * var(--in-delay))
+                var(--in-timing-function) both;
           }
 
-          100% {
-            z-index: 5;
-            transform: translate(0px, 30px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes from-right {
-          0% {
-            z-index: 20;
-            opacity: 0;
-            transform: translate(20px, -6px);
+          .loadingspinner #square4 {
+            left: calc(2 * var(--offset));
+            top: calc(1 * var(--offset));
+            animation:
+              square4 var(--duration) var(--delay) var(--timing-function)
+                infinite,
+              squarefadein var(--in-duration) calc(3 * var(--in-delay))
+                var(--in-timing-function) both;
           }
 
-          20% {
-            z-index: 10;
-            opacity: 1;
-            transform: translate(0px, 0px);
+          .loadingspinner #square5 {
+            left: calc(3 * var(--offset));
+            top: calc(1 * var(--offset));
+            animation:
+              square5 var(--duration) var(--delay) var(--timing-function)
+                infinite,
+              squarefadein var(--in-duration) calc(4 * var(--in-delay))
+                var(--in-timing-function) both;
           }
 
-          40% {
-            z-index: 9;
-            transform: translate(0px, 4px);
+          @keyframes square1 {
+            0% {
+              left: calc(0 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            8.333% {
+              left: calc(0 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            100% {
+              left: calc(0 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
           }
 
-          60% {
-            z-index: 8;
-            transform: translate(0px, 8px);
+          @keyframes square2 {
+            0% {
+              left: calc(0 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            8.333% {
+              left: calc(0 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            16.67% {
+              left: calc(1 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            25.00% {
+              left: calc(1 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            83.33% {
+              left: calc(1 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            91.67% {
+              left: calc(1 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            100% {
+              left: calc(0 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
           }
 
-          80% {
-            z-index: 7;
-            opacity: 1;
-            transform: translate(0px, 12px);
+          @keyframes square3 {
+            0%,
+            100% {
+              left: calc(1 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            16.67% {
+              left: calc(1 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            25.00% {
+              left: calc(1 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            33.33% {
+              left: calc(2 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            41.67% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            66.67% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            75.00% {
+              left: calc(2 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            83.33% {
+              left: calc(1 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            91.67% {
+              left: calc(1 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
           }
 
-          100% {
-            z-index: 5;
-            transform: translate(0px, 30px);
-            opacity: 0;
+          @keyframes square4 {
+            0% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            33.33% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            41.67% {
+              left: calc(2 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            50.00% {
+              left: calc(3 * var(--offset));
+              top: calc(2 * var(--offset));
+            }
+
+            58.33% {
+              left: calc(3 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            100% {
+              left: calc(3 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
           }
-        }
-      `}</style>
+
+          @keyframes square5 {
+            0% {
+              left: calc(3 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            50.00% {
+              left: calc(3 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            58.33% {
+              left: calc(3 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            66.67% {
+              left: calc(2 * var(--offset));
+              top: calc(0 * var(--offset));
+            }
+
+            75.00% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+
+            100% {
+              left: calc(2 * var(--offset));
+              top: calc(1 * var(--offset));
+            }
+          }
+
+          @keyframes squarefadein {
+            0% {
+              transform: scale(0.75);
+              opacity: 0;
+            }
+
+            100% {
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };

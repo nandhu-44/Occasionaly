@@ -47,8 +47,7 @@ export default function EventsPage() {
                 <Select
                   value={filters.eventType}
                   onValueChange={(value) =>
-                    handleFilterChange("eventType", value)
-                  }
+                    handleFilterChange("eventType", value)}
                 >
                   <SelectTrigger id="eventType">
                     <SelectValue placeholder="Select event type" />
@@ -67,8 +66,7 @@ export default function EventsPage() {
                 <Select
                   value={filters.foodType}
                   onValueChange={(value) =>
-                    handleFilterChange("foodType", value)
-                  }
+                    handleFilterChange("foodType", value)}
                 >
                   <SelectTrigger id="foodType">
                     <SelectValue placeholder="Select food type" />
@@ -90,8 +88,7 @@ export default function EventsPage() {
                 <Select
                   value={filters.peopleCount}
                   onValueChange={(value) =>
-                    handleFilterChange("peopleCount", value)
-                  }
+                    handleFilterChange("peopleCount", value)}
                 >
                   <SelectTrigger id="peopleCount">
                     <SelectValue placeholder="Select number of people" />
