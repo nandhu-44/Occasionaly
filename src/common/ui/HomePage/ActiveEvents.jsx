@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import Loader from "@/common/components/Loader";
 
-const ActiveEvents = () => {
+const ActiveEvents = ({ filters }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,31 +28,73 @@ const ActiveEvents = () => {
     fetchEvents();
   }, []);
 
+  const filteredEvents = events.filter((event) => {
+    return (
+      (filters?.eventType === "All" ||
+        event.eventType === filters?.eventType) &&
+      (filters?.foodType === "All" || event.foodType === filters?.foodType) &&
+      (filters?.peopleCount === "All" ||
+        (filters?.peopleCount === "<100" && event.peopleCount < 100) ||
+        (filters?.peopleCount === "100-300" &&
+          event.peopleCount >= 100 &&
+          event.peopleCount <= 300) ||
+        (filters?.peopleCount === ">300" && event.peopleCount > 300))
+    );
+  });
+
   if (loading) return <Loader />;
   if (error) {
     return <div className="text-center text-red-500">Error: {error}</div>;
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {events.map((event) => (
-        <Card key={event._id} className="overflow-hidden">
-          <div className="relative h-48 w-full">
-            <Image
-              src={event.image || "/events/default-event.jpg"}
-              alt={event.title}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <CardContent className="p-4">
-            <h3 className="mb-2 text-lg font-semibold">{event.title}</h3>
-            <p className="text-sm text-gray-600">Type: {event.eventType}</p>
-            <p className="text-sm text-gray-600">Food: {event.foodType}</p>
-            <p className="text-sm text-gray-600">People: {event.peopleCount}</p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="min-h-screen rounded-lg bg-yellow-400 py-20 pt-8">
+      <h2 className="mb-8 text-center text-3xl font-bold">Active Events</h2>
+      <div className="mx-auto max-w-screen-xl px-4 sm:px-4 md:px-4 lg:px-32">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {filteredEvents.map((event) => (
+            <Card
+              key={event._id}
+              className="group w-full overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-all hover:shadow-xl"
+            >
+              <div className="relative aspect-[16/9]">
+                <Image
+                  src={event.image || "/events/default-event.jpg"}
+                  alt={event.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  quality={70}
+                  blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAEALAAAAAABAAEAAAICTAEAOw=="
+                />
+              </div>
+              <CardContent className="p-4">
+                <h3 className="line-clamp-1 text-lg font-semibold text-gray-800">
+                  {event.title}
+                </h3>
+                <div className="mt-2 flex items-center justify-between">
+                  <span className="text-gray-500">{event.eventType}</span>
+                  <span className="text-gray-600">{event.location}</span>
+                </div>
+                <div className="mt-2 space-y-1 text-sm text-gray-500">
+                  <p className="flex items-center gap-2">
+                    <span className="font-medium">Food:</span>
+                    {event.foodType}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <span className="font-medium">Attendees:</span>
+                    {event.peopleCount}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        {filteredEvents.length === 0 && (
+          <p className="mt-8 text-center text-gray-800">
+            No events match the selected filters.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
