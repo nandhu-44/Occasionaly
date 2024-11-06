@@ -55,7 +55,7 @@ const ActiveEvents = ({ filters }) => {
           {filteredEvents.map((event) => (
             <Card
               key={event._id}
-              className="group w-full overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-all hover:shadow-xl"
+              className="hover:cursor-pointer group w-full overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-all hover:shadow-xl"
             >
               <div className="relative aspect-[16/9]">
                 <Image
