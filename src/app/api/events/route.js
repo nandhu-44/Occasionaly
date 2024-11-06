@@ -68,9 +68,8 @@ export const POST = async (req) => {
   }
 };
 
-export async function GET() {
+export async function GET(req) {
   try {
-    await MongoConnect();
     const events = await Event.find().sort({ createdAt: -1 });
     return NextResponse.json({ events }, { status: 200 });
   } catch (error) {
