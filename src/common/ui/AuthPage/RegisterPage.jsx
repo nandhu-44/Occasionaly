@@ -166,9 +166,6 @@ const RegisterPage = () => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="vendor">Vendor</SelectItem>
-                      <SelectItem value="eventOrganizer">
-                        Event Organizer
-                      </SelectItem>
                       <SelectItem value="user">User</SelectItem>
                     </SelectContent>
                   </Select>
