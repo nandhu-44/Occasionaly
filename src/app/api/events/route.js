@@ -1,5 +1,7 @@
 import MongoConnect from "@/utils/MongoConnect";
 import Event from "@/models/Event";
+import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 // Connect to MongoDB
 MongoConnect();
@@ -7,6 +9,19 @@ MongoConnect();
 // Handle POST requests
 export const POST = async (req) => {
   try {
+    // Verify authentication
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        { message: "Authentication required" },
+        { status: 401 },
+      );
+    }
+
+    // Verify token and get user ID
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
     // Parse the request body as JSON
     const body = await req.json();
     const { title, description, eventType, foodType, peopleCount, image } =
@@ -17,22 +32,15 @@ export const POST = async (req) => {
       !title || !description || !eventType || !foodType || !peopleCount ||
       !image
     ) {
-      console.log("Missing fields:", {
-        title,
-        description,
-        eventType,
-        foodType,
-        peopleCount,
-        image,
-      });
-      return new Response(
-        JSON.stringify({ message: "Please provide all required fields." }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+      return NextResponse.json(
+        { message: "Please provide all required fields." },
+        { status: 400 },
       );
     }
 
     // Create a new event instance
     const newEvent = new Event({
+      userId,
       title,
       description,
       eventType,
@@ -45,18 +53,31 @@ export const POST = async (req) => {
     const savedEvent = await newEvent.save();
 
     // Return success response
-    return new Response(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         message: "Event created successfully!",
         event: savedEvent,
-      }),
-      { status: 201, headers: { "Content-Type": "application/json" } },
+      },
+      { status: 201 },
     );
   } catch (error) {
-    console.error("Error creating event:", error);
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
+
+export async function GET() {
+  try {
+    await MongoConnect();
+    const events = await Event.find().sort({ createdAt: -1 });
+    return NextResponse.json({ events }, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Error fetching events" },
+      { status: 500 },
+    );
+  }
+}

@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
+import { toast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -15,6 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ActiveEvents from "../HomePage/ActiveEvents";
 
 export default function EventsPage() {
+  const { user, isAuthenticated } = useUser();
   const [filters, setFilters] = React.useState({
     eventType: "All",
     foodType: "All",
@@ -25,15 +28,34 @@ export default function EventsPage() {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
+  const handleCreateEventClick = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication required",
+        description: "Please log in to create an event",
+        variant: "destructive",
+      });
+      return;
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Events</h1>
-        <Link href="/create-event">
-          <Button>
-            <PlusCircle className="mr-2 h-4 w-4" /> Create New Event
-          </Button>
-        </Link>
+        {isAuthenticated
+          ? (
+            <Link href="/create-event">
+              <Button>
+                <PlusCircle className="mr-2 h-4 w-4" /> Create New Event
+              </Button>
+            </Link>
+          )
+          : (
+            <Button onClick={handleCreateEventClick}>
+              <PlusCircle className="mr-2 h-4 w-4" /> Create New Event
+            </Button>
+          )}
       </div>
       <div className="flex gap-4">
         <Card className="h-fit w-64">

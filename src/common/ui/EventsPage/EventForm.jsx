@@ -13,8 +13,25 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast"; // Import your toast hook
+import { useUser } from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
 
 export default function EventForm() {
+  const { user, isAuthenticated } = useUser();
+  const router = useRouter();
+
+  // Redirect if not authenticated
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication required",
+        description: "Please log in to create an event",
+        variant: "destructive",
+      });
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
+
   const [eventData, setEventData] = useState({
     title: "",
     eventType: "",
@@ -41,32 +58,25 @@ export default function EventForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // If there's an image, convert it to a base64 string
     let base64Image = null;
     if (eventData.image) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        base64Image = reader.result;
-      };
-      reader.readAsDataURL(eventData.image);
+      base64Image = await new Promise((resolve) => {
+        reader.onload = () => {
+          // Add the MIME type prefix to the base64 string
+          const imageType = eventData.image.type || "image/jpeg";
+          const base64String = reader.result.split(",")[1];
+          resolve(`data:${imageType};base64,${base64String}`);
+        };
+        reader.readAsDataURL(eventData.image);
+      });
     }
-
-    // Wait for the image to be converted before submitting the form
-    const imageDataPromise = new Promise((resolve) => {
-      const checkImage = setInterval(() => {
-        if (base64Image) {
-          clearInterval(checkImage);
-          resolve();
-        }
-      }, 100);
-    });
-
-    await imageDataPromise;
 
     // Prepare the event data to be sent as JSON
     const dataToSubmit = {
       ...eventData,
-      image: base64Image, // Add the base64 string instead of the File object
+      image: base64Image,
+      userId: user._id, // Add user ID to submission
     };
 
     try {
@@ -74,6 +84,7 @@ export default function EventForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Add auth token
         },
         body: JSON.stringify(dataToSubmit),
       });
@@ -112,6 +123,10 @@ export default function EventForm() {
       });
     }
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="container mx-auto p-4">

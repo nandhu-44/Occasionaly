@@ -103,10 +103,10 @@ export const UserProvider = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return loading ? (
-    <Loader />
-  ) : (
-    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
+  return loading ? <Loader /> : (
+    <UserContext.Provider value={contextValue}>
+      {children}
+    </UserContext.Provider>
   );
 };
 
