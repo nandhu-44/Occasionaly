@@ -49,7 +49,7 @@ export async function POST(req) {
       { id: newUser._id, email: newUser.email },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h", // Token expires in 1 hour
+        expiresIn: "24h", // Token expires in 24 hour
       },
     );
 

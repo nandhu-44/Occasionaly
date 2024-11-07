@@ -57,8 +57,8 @@ export default function EventsPage() {
             </Button>
           )}
       </div>
-      <div className="flex gap-4">
-        <Card className="h-fit w-64">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <Card className="h-fit w-full lg:w-64">
           <CardContent className="p-4">
             <h2 className="mb-4 text-lg font-semibold">Filters</h2>
             <div className="space-y-4">

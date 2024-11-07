@@ -20,7 +20,7 @@ const Navbar = () => {
     user: [
       // { href: "/events", label: "Events" },
       { href: "/create-event", label: "Create Event" },
-      { href: "/services", label: "Vendors" },
+      // { href: "/services", label: "Vendors" },
     ],
     vendor: [
       // { href: "/events", label: "Events" },
