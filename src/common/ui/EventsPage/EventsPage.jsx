@@ -78,6 +78,7 @@ export default function EventsPage() {
                     <SelectItem value="All">All</SelectItem>
                     <SelectItem value="Wedding">Wedding</SelectItem>
                     <SelectItem value="Conference">Conference</SelectItem>
+                    <SelectItem value="Party">Party</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
