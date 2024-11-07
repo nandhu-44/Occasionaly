@@ -39,6 +39,7 @@ export default function EventForm() {
     peopleCount: "",
     description: "",
     image: null,
+    basePrice: "", // Add this new field
   });
 
   const handleInputChange = (e) => {
@@ -149,7 +150,8 @@ export default function EventForm() {
               <Label htmlFor="eventType">Event Type</Label>
               <Select
                 onValueChange={(value) =>
-                  setEventData((prev) => ({ ...prev, eventType: value }))}
+                  setEventData((prev) => ({ ...prev, eventType: value }))
+                }
               >
                 <SelectTrigger id="eventType">
                   <SelectValue placeholder="Select event type" />
@@ -158,6 +160,7 @@ export default function EventForm() {
                   <SelectItem value="Wedding">Wedding</SelectItem>
                   <SelectItem value="Conference">Conference</SelectItem>
                   <SelectItem value="Party">Party</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -165,7 +168,8 @@ export default function EventForm() {
               <Label htmlFor="foodType">Food Type</Label>
               <Select
                 onValueChange={(value) =>
-                  setEventData((prev) => ({ ...prev, foodType: value }))}
+                  setEventData((prev) => ({ ...prev, foodType: value }))
+                }
               >
                 <SelectTrigger id="foodType">
                   <SelectValue placeholder="Select food type" />
@@ -186,6 +190,19 @@ export default function EventForm() {
                 onChange={handleInputChange}
                 placeholder="Enter number of people"
                 required
+              />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="basePrice">Minimum Bid Amount</Label>
+              <Input
+                id="basePrice"
+                name="basePrice"
+                type="number"
+                value={eventData.basePrice}
+                onChange={handleInputChange}
+                placeholder="Enter minimum bid amount"
+                required
+                min="0"
               />
             </div>
             <div className="mb-4">

@@ -1,5 +1,5 @@
 {
-  "conventionalCommits.scopes": ["vendor", "contactpage"]
+  "conventionalCommits.scopes": ["vendor", "contactpage", "basePrice"]
   // "files.autoSave": "afterDelay",
   // "files.autoSaveDelay": 1000,
   // "editor.formatOnSave": true,

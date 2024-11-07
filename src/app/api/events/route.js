@@ -24,13 +24,25 @@ export const POST = async (req) => {
 
     // Parse the request body as JSON
     const body = await req.json();
-    const { title, description, eventType, foodType, peopleCount, image } =
-      body;
+    const {
+      title,
+      description,
+      eventType,
+      foodType,
+      peopleCount,
+      basePrice,
+      image,
+    } = body;
 
     // Validate the required fields
     if (
-      !title || !description || !eventType || !foodType || !peopleCount ||
-      !image
+      !title ||
+      !description ||
+      !eventType ||
+      !foodType ||
+      !peopleCount ||
+      !image ||
+      !basePrice
     ) {
       return NextResponse.json(
         { message: "Please provide all required fields." },
@@ -46,6 +58,7 @@ export const POST = async (req) => {
       eventType,
       foodType,
       peopleCount,
+      basePrice,
       image, // Ensure the image is handled properly (as base64 or URL)
     });
 
