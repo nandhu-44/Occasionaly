@@ -106,7 +106,7 @@ const ContactPage = () => {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span className="text-gray-600">contact@example.com</span>
+                <span className="text-gray-600">contact@occasionaly.co</span>
               </div>
               <div className="flex items-center justify-center space-x-3 md:justify-start">
                 <svg

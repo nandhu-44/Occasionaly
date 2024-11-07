@@ -13,6 +13,7 @@ const eventSchema = new mongoose.Schema({
   foodType: { type: String, required: true },
   peopleCount: { type: Number, required: true },
   image: { type: String, required: true }, // base64 encoded image
+  basePrice: { type: Number, default: 10000 }, // Default bidding price
   createdAt: { type: Date, default: Date.now },
 });
 

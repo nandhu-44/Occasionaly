@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import Loader from "@/common/components/Loader";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const ActiveEvents = ({ filters }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -84,6 +87,14 @@ const ActiveEvents = ({ filters }) => {
                     <span className="font-medium">Attendees:</span>
                     {event.peopleCount}
                   </p>
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <Button 
+                    onClick={() => router.push(`/events/${event._id}`)}
+                    className="w-full"
+                  >
+                    View Details
+                  </Button>
                 </div>
               </CardContent>
             </Card>
