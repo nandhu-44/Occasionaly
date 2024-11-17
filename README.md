@@ -1,36 +1,66 @@
-# This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
+# [Occasionaly](https://occasionaly.co) 🎉
 
-## Getting Started
+A modern event planning and management application that helps users organize and coordinate social gatherings and celebrations.
 
-First, run the development server:
+🌐 [Visit Occasionaly](https://occasionaly.co)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## About 📖
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Occasionaly is a web-based platform designed to simplify the process of planning events. Whether you're organizing a birthday party, wedding, or corporate event, our platform provides the tools you need to make it successful.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Features ✨
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- 📅 Event creation and management
+- 📱 Mobile-responsive design
+- 💰 Bidding and vendor selection
+- 📨 RSVP management
+- 📊 Event analytics
 
-## Learn More
+## Installation  and Setup ⚒️
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    git clone https://github.com/nandhu-44/Occasionaly.git
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Move into the project directory
 
-## Deploy on Vercel
+    ```bash
+    cd Occasionaly
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Install dependencies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```bash
+    npm install
+    ```
+
+4. Set up environment variables
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Update the `.env` file with your MongoDB connection string and JWT secret.
+
+5. Start the development server
+
+    ```bash
+    npm run dev
+    ```
+
+## Tech Stack 🛠️
+
+- ⚡ Next.js 14+
+- ⚛️ React 18
+- 🎨 Tailwind CSS
+- 🍃 MongoDB
+
+## Contributing 🤝
+
+We welcome contributions! Please feel free to submit a Pull Request.
+
+---
+
+Made with ❤️ and [Next.js](https://nextjs.org/) by **[Nandhu](https://github.com/nandhu-44/ "⚡ Nandhu ⚡")** and **[Pruthvi](https://github.com/ItsTatsuya/)**
